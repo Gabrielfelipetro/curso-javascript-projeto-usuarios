@@ -1,20 +1,21 @@
 class UserController{
-    constructor(formId){
+    constructor(formId, tableId){
         this.formEl = document.getElementById(formId);
+        this.tableEl = document.getElementById(tableId);
+        this.onSubmit();
     }
 
     onSubmit(){
         this.formEl.addEventListener('submit', event=>{
-            event.preventDefault(); //para o comportamento padrão do evento  
-            let user = this.getValues();   
-                   
+            event.preventDefault(); //para o comportamento padrão do evento     
+            this.addLine(this.getValues());
         });
     }
 
     getValues(){
         let user = {};
 
-        this.formEl.elements.forEach((field, index)=>{
+        [...this.formEl.elements.forEach]((field, index)=>{
             if(field.name == 'gender'){
                 if(field.checked){
                     user[field.name] = field.value;
@@ -30,7 +31,7 @@ class UserController{
 
     addLine(dataUser, tableId){
         //inner recuper ou atribui valor a um elemento html
-        document.getElementById('table-users').innerHTML = ` 
+        this.tableEl.innerHTML = ` 
         <tr>
         <td><img src="dist/img/user1-128x128.jpg" alt="User Image" class="img-circle img-sm"></td>
         <td>${dataUser.name}</td>
